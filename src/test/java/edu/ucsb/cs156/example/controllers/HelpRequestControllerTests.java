@@ -129,18 +129,20 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("table")
                                 .requestTime(ldt1)
                                 .explanation("testing")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 when(helpRequestRepository.save(eq(helpRequest1))).thenReturn(helpRequest1);
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/helprequest/post?requesterEmail=cgaucho@ucsb.edu&teamId=s25-05&tableOrBreakoutRoom=table&requestTime=2022-01-03T00:00:00&explanation=testing&solved=false")
+                                post("/api/helprequest/post?requesterEmail=cgaucho@ucsb.edu&teamId=s25-05&tableOrBreakoutRoom=table&requestTime=2022-01-03T00:00:00&explanation=testing&solved=true")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
+                assertEquals(true, helpRequest1.getSolved());
+
                 verify(helpRequestRepository, times(1)).save(helpRequest1);
                 String expectedJson = mapper.writeValueAsString(helpRequest1);
                 String responseString = response.getResponse().getContentAsString();
