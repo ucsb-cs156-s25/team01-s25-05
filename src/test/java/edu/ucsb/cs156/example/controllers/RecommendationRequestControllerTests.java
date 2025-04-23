@@ -129,6 +129,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase{
                 .dateNeeded(ldt2)
                 .done(false)
                 .build();
+                
                 when(recommendationRequestRepository.save(eq(RecommendationRequest1))).thenReturn(RecommendationRequest1);
 
                 // act
@@ -143,6 +144,47 @@ public class RecommendationRequestControllerTests extends ControllerTestCase{
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
+
+         @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void an_admin_user_can_post_a_new_done_recommendationrequest() throws Exception {
+                // arrange
+
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt2 = LocalDateTime.parse("2022-03-11T00:00:00");
+
+
+                RecommendationRequest RecommendationRequest1 = RecommendationRequest.builder()
+                .requestorEmail("hienhuynh@ucsb.edu")
+                .professorEmail("pconrad")
+                .explanation("I need a recommendation letter")
+                .dateRequested(ldt1)
+                .dateNeeded(ldt2)
+                .done(true)
+                .build();
+                
+                when(recommendationRequestRepository.save(eq(RecommendationRequest1))).thenReturn(RecommendationRequest1);
+
+                // act
+                MvcResult response = mockMvc.perform(
+                                post("/api/recommendationrequest/post?requestorEmail=hienhuynh@ucsb.edu&professorEmail=pconrad&explanation=I need a recommendation letter&dateRequested=2022-01-03T00:00:00&dateNeeded=2022-03-11T00:00:00&done=true")
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
+
+                // assert
+                verify(recommendationRequestRepository, times(1)).save(eq(RecommendationRequest1));
+                String expectedJson = mapper.writeValueAsString(RecommendationRequest1);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
+
+        
+
+        
+
+        
+
+        
 
     
     
