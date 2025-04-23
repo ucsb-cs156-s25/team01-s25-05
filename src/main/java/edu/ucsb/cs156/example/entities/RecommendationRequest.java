@@ -26,10 +26,10 @@ public class RecommendationRequest {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  private String reuqesterEmail;
+  private String requestorEmail;
   private String professorEmail;
   private String explanation;
-  private LocalDateTime dataRequested;
+  private LocalDateTime dateRequested;
   private LocalDateTime dateNeeded;
   private boolean done;
 }
