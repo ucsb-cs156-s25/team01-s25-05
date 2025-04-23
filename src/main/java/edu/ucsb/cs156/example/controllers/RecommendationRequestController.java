@@ -4,7 +4,7 @@ package edu.ucsb.cs156.example.controllers;
 import edu.ucsb.cs156.example.entities.RecommendationRequest;
 import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
-import edu.ucsb.cs156.example.repositories.RecommandationRequestRepository;
+import edu.ucsb.cs156.example.repositories.RecommendationRequestRepository;
 import edu.ucsb.cs156.example.repositories.UCSBDateRepository;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
 
 
 /**
- * This is a REST controller for RecomendationRequest 
+ * This is a REST controller for RecommendationRequest 
  */
 
 @Tag(name = "RecommendationRequest")
@@ -42,7 +42,7 @@ import java.time.LocalDateTime;
 public class RecommendationRequestController extends ApiController  {
 
     @Autowired
-    RecommandationRequestRepository recommendationRequestRepository;
+    RecommendationRequestRepository recommendationRequestRepository;
 
         /**
      * List all RecommendationRequest  
