@@ -226,7 +226,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("breakout room")
                                 .requestTime(ldt2)
                                 .explanation("not testing")
-                                .solved(true)
+                                .solved(false)
                                 .build();
 
                 String requestBody = mapper.writeValueAsString(helpRequestEdited);
