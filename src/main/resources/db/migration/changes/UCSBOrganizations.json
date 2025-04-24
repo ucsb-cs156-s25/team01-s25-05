@@ -1,0 +1,62 @@
+{
+    "databaseChangeLog": [
+      {
+        "changeSet": {
+          "id": "UCSBOrganizations-1",
+          "author": "jiwa310",
+          "preConditions": [
+            {
+              "onFail": "MARK_RAN"
+            },
+            {
+              "not": [
+                {
+                  "tableExists": {
+                    "tableName": "UCSBORGANIZATIONS"
+                  }
+                }
+              ]
+            }
+          ],
+          "changes": [
+            {
+              "createTable": {
+                "columns": [
+                  {
+                    "column": {
+                      "autoIncrement": true,
+                      "constraints": {
+                        "primaryKey": true,
+                        "primaryKeyName": "UCSBORGANIZATIONS_PK"
+                      },
+                      "name": "ID",
+                      "type": "BIGINT"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "ORGTRANSLATIONSHORT",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "ORGTRANSLATION",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "INACTIVE",
+                      "type": "BOOLEAN"
+                    }
+                  }
+                ],
+                "tableName": "UCSBORGANIZATIONS"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
