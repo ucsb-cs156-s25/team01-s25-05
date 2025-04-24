@@ -3,7 +3,6 @@ package edu.ucsb.cs156.example.controllers;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
 import edu.ucsb.cs156.example.ControllerTestCase;
-import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
 import edu.ucsb.cs156.example.repositories.UCSBDiningCommonsMenuItemRepository;
 
@@ -129,7 +128,7 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
 
         @WithMockUser(roles = { "USER" })
         @Test
-        public void logged_in_user_can_get_all_ucsbdates() throws Exception {
+        public void logged_in_user_can_get_all_menu_items() throws Exception {
 
                 // arrange
                 UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem1 = UCSBDiningCommonsMenuItem.builder()
@@ -163,7 +162,7 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void an_admin_user_can_post_a_new_ucsbdate() throws Exception {
+        public void an_admin_user_can_post_a_new_menu_item() throws Exception {
 
                 // arrange
                 UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem1 = UCSBDiningCommonsMenuItem.builder()
