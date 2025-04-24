@@ -6,10 +6,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * The  is a RecommandationRequestRepository repository for RecommationRequest entities.
+ * The  is a RecommendationRequestRepository repository for RecommendationRequest entities.
  */
 
 @Repository
-public interface RecommandationRequestRepository extends CrudRepository<RecommendationRequest, Long> {
+public interface RecommendationRequestRepository extends CrudRepository<RecommendationRequest, Long> {
  
 }
