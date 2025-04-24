@@ -1,5 +1,6 @@
 package edu.ucsb.cs156.example.controllers;
 
+import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.UCSBDiningCommonsMenuItemRepository;
@@ -54,6 +55,23 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     }
 
     /**
+     * Get a single UCSB dining commons menu items by id
+     * 
+     * @param id the id of the menu item
+     * @return a UCSBDiningCommonsMenuItem
+     */
+    @Operation(summary = "Get a single menu item")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("")
+    public UCSBDiningCommonsMenuItem getById(
+            @Parameter(name = "id") @RequestParam Long id) {
+                UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
+
+        return ucsbDiningCommonsMenuItem;
+    }
+
+    /**
      * Create a new UCSB Dining Commons Menu Item
      * 
      * @param diningCommonsCode the code of the dining hall
@@ -75,7 +93,8 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
         ucsbDiningCommonsMenuItem.setName(name);
         ucsbDiningCommonsMenuItem.setStation(station);
 
-        UCSBDiningCommonsMenuItem savedUcsbDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository.save(ucsbDiningCommonsMenuItem);
+        UCSBDiningCommonsMenuItem savedUcsbDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository
+                .save(ucsbDiningCommonsMenuItem);
 
         return savedUcsbDiningCommonsMenuItem;
     }
