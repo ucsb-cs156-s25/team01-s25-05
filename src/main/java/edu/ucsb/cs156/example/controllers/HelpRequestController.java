@@ -90,6 +90,19 @@ public class HelpRequestController extends ApiController {
     }
 
 
+    @Operation(summary= "Delete a HelpRequest")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteHelpRequest(
+            @Parameter(name="id") @RequestParam Long id) {
+        HelpRequest helpRequest = helpRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(HelpRequest.class, id));
+
+        helpRequestRepository.delete(helpRequest);
+        return genericMessage("HelpRequest with id %s deleted".formatted(id));
+    }
+
+
     @Operation(summary= "Update a single help request")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
