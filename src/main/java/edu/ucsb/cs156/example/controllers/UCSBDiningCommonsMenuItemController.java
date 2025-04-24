@@ -41,7 +41,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     UCSBDiningCommonsMenuItemRepository ucsbDiningCommonsMenuItemRepository;
 
     /**
-     * List all UCSB Dining Commons Menu Items
+     * List all UCSB dining commons menu items
      * 
      * @return an iterable of UCSBDiningCommonsMenuItem
      */
@@ -54,7 +54,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     }
 
     /**
-     * Get a single UCSB dining commons menu items by id
+     * Get a single dining commons menu items by id
      * 
      * @param id the id of the menu item
      * @return a UCSBDiningCommonsMenuItem
@@ -71,7 +71,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     }
 
     /**
-     * Create a new UCSB Dining Commons Menu Item
+     * Create a new dining commons menu item
      * 
      * @param diningCommonsCode the code of the dining hall
      * @param name              the name of the item
@@ -96,6 +96,24 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
                 .save(ucsbDiningCommonsMenuItem);
 
         return savedUcsbDiningCommonsMenuItem;
+    }
+
+    /**
+     * Delete a dining commons menu item
+     * 
+     * @param id the id of the menu item to delete
+     * @return a message indicating the menu item was deleted
+     */
+    @Operation(summary = "Delete a UCSBDiningCommonsMenuItem")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteUCSBDiningCommonsMenuItem(
+            @Parameter(name = "id") @RequestParam Long id) {
+                UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
+
+                ucsbDiningCommonsMenuItemRepository.delete(ucsbDiningCommonsMenuItem);
+        return genericMessage("UCSBDiningCommonsMenuItem with id %s deleted".formatted(id));
     }
 
     /**
