@@ -117,6 +117,35 @@ import java.time.LocalDateTime;
 <span class="fc" id="L117">        return recommendationRequest;</span>
     }
 
+       /**
+     * Update a single recommmendation request
+     * 
+     * @param id       id of the recommendation request to update
+     * @param incoming the new recommendation request
+     * @return the updated recommendation request object
+     */
+    @Operation(summary= &quot;Update a single recommendation request&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PutMapping(&quot;&quot;)
+    public RecommendationRequest updateRecommendationRequest(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id,
+            @RequestBody @Valid RecommendationRequest incoming) {
+
+<span class="fc" id="L134">        RecommendationRequest recommendationRequest = recommendationRequestRepository.findById(id)</span>
+<span class="fc" id="L135">                .orElseThrow(() -&gt; new EntityNotFoundException(RecommendationRequest.class, id));</span>
+<span class="fc" id="L136">        recommendationRequest.setRequestorEmail(incoming.getRequestorEmail());</span>
+<span class="fc" id="L137">        recommendationRequest.setProfessorEmail(incoming.getProfessorEmail());</span>
+<span class="fc" id="L138">        recommendationRequest.setDateNeeded(incoming.getDateNeeded());</span>
+<span class="fc" id="L139">        recommendationRequest.setDateRequested(incoming.getDateRequested());</span>
+<span class="fc" id="L140">        recommendationRequest.setDone(incoming.getDone());</span>
+<span class="fc" id="L141">        recommendationRequest.setExplanation(incoming.getExplanation());</span>
+
+<span class="fc" id="L143">        recommendationRequestRepository.save(recommendationRequest);</span>
+
+<span class="fc" id="L145">        return recommendationRequest;</span>
+    }
+
+
 
     
 }
