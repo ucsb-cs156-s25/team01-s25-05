@@ -91,5 +91,49 @@ import java.time.LocalDateTime;
 <span class="fc" id="L91">        return savedArticle;</span>
     }
 
+     /**
+     * Get a single article by id
+     * 
+     * @param id the id of the article
+     * @return a Articles
+     */
+    @Operation(summary= &quot;Get a single article&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public Articles getById(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L105">        Articles article = articlesRepository.findById(id)</span>
+<span class="fc" id="L106">                .orElseThrow(() -&gt; new EntityNotFoundException(Articles.class, id));</span>
+
+<span class="fc" id="L108">        return article;</span>
+    }
+
+    /**
+     * Update a single article
+     * 
+     * @param id       id of the article to update
+     * @param incoming the new article
+     * @return the updated article object
+     */
+    @Operation(summary= &quot;Update a single article&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PutMapping(&quot;&quot;)
+    public Articles updateArticles(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id,
+            @RequestBody @Valid Articles incoming) {
+
+<span class="fc" id="L125">        Articles article = articlesRepository.findById(id)</span>
+<span class="fc" id="L126">                .orElseThrow(() -&gt; new EntityNotFoundException(Articles.class, id));</span>
+
+<span class="fc" id="L128">        article.setTitle(incoming.getTitle()); </span>
+<span class="fc" id="L129">        article.setUrl(incoming.getUrl());</span>
+<span class="fc" id="L130">        article.setExplanation(incoming.getExplanation());</span>
+<span class="fc" id="L131">        article.setEmail(incoming.getEmail());</span>
+<span class="fc" id="L132">        article.setDateAdded(incoming.getDateAdded());</span>
+
+<span class="fc" id="L134">        articlesRepository.save(article);</span>
+
+<span class="fc" id="L136">        return article;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
