@@ -145,6 +145,25 @@ import java.time.LocalDateTime;
 <span class="fc" id="L145">        return recommendationRequest;</span>
     }
 
+      /**
+     * Delete a RecommendationRequest
+     * 
+     * @param id the id of the recommendation request to delete
+     * @return a message indicating the recommendation request was deleted
+     */
+    @Operation(summary= &quot;Delete a RecommendationRequest&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @DeleteMapping(&quot;&quot;)
+    public Object deleteRecommendationRequest(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L159">        RecommendationRequest recommendationRequest = recommendationRequestRepository.findById(id)</span>
+<span class="fc" id="L160">                .orElseThrow(() -&gt; new EntityNotFoundException(RecommendationRequest.class, id));</span>
+
+<span class="fc" id="L162">        recommendationRequestRepository.delete(recommendationRequest);</span>
+<span class="fc" id="L163">        return genericMessage(&quot;RecommendationRequest with id %s deleted&quot;.formatted(id));</span>
+    }
+
+
 
 
     
